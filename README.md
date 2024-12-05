@@ -50,7 +50,7 @@ Python3
 ```cd src```
 3. **Run the Script**. The files mentioned below are sample files. Can be replaced with your own file. 
 ```bash 
-python main.py --log_file resources/logs_1.log --lookup_file resources/lookup_1.csv
+python main.py --log_file resources/logs_2.log --lookup_file resources/lookup_1.csv
 ```
 4. **Navigate to output directory to read the parsed output** ```src/output/output```
 
@@ -66,7 +66,7 @@ python -m unittest discover
 ## Assumptions
 - Utilized protocol-number from (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml) to convert decimal given in logs to keyword
 - Supports only default log version 2 format (as per the version 2 format, going by 0 index dstport is at index 6 and protocol is at index 7)
-- Supports only txt for log file. csv for lookup.
+- Supports only log for log file. csv for lookup.
 - Used this doc for flow log reference: https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html
 - tag_results.csv output, marks the tag as "Untagged" if not in lookup table
 - port_combination_results.csv output, displays all the port to protocol combination and its count. This is independent of tags.
