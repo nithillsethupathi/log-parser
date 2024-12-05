@@ -4,11 +4,12 @@ import collections
 Parser engine that takes in all the inputs, processes the log and creates an output file with the parsed log
 '''
 class LogParser:
-    def __init__(self, protocol_mapper, log_file, lookup_table, output_file):
+    def __init__(self, protocol_mapper, log_file, lookup_table, tag_file, port_combination_file):
         self.lookup_table = lookup_table
         self.protocol_mapper = protocol_mapper
         self.log_file = log_file
-        self.output_file = output_file
+        self.tag_file = tag_file
+        self.port_combination_file = port_combination_file
         self.tag_count = collections.Counter()
         self.protocol_count = collections.Counter()
         self.parse_file()
@@ -23,12 +24,13 @@ class LogParser:
             raise ValueError(f"Log format is incorrect: {log_line}")
 
     # helper function to generate output from the stored dictionaries
-    def generate_output(self, output_file):
-        with open(output_file, 'w') as file:
-            file.write("Tag Counts: \nTag,Count\n")
+    def generate_output(self, tag_file, port_combination_file):
+        with open(tag_file, 'w') as file:
+            file.write("Tag,Count\n")
             for key, value in self.tag_count.items():
                 file.write(f"{key},{value}\n")
-            file.write("Port/Protocol Combination Counts:\nPort,Protocol,Count\n")
+        with open(port_combination_file, 'w') as file:
+            file.write("Port,Protocol,Count\n")
             for (dstport, protocol_name), value in self.protocol_count.items():
                 file.write(f"{dstport},{protocol_name},{value}\n")
 
@@ -51,7 +53,7 @@ class LogParser:
                         self.protocol_count[(dstport, protocol_name)] += 1
                     else:
                         print(f"Skipping line: {line}. protocol_name is null")
-            self.generate_output(self.output_file)
+            self.generate_output(self.tag_file, self.port_combination_file)
         except FileNotFoundError:
             raise FileNotFoundError(f"Log file not found: {self.log_file}")
         except Exception as e:
