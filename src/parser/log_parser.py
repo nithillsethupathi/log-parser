@@ -3,6 +3,8 @@ import collections
 '''
 Parser engine that takes in all the inputs, processes the log and creates an output file with the parsed log
 '''
+
+
 class LogParser:
     def __init__(self, protocol_mapper, log_file, lookup_table, tag_file, port_combination_file):
         self.lookup_table = lookup_table
@@ -40,11 +42,13 @@ class LogParser:
             with open(self.log_file, "r") as file:
                 for line in file:
                     dstport, protocol = self.get_dstport_and_protocol(line)
-                    protocol_name = self.protocol_mapper.get_protocol_name(protocol)
+                    protocol_name = self.protocol_mapper.get_protocol_name(
+                        protocol)
                     if (dstport, protocol_name) in self.lookup_table.lookup_table:
                         tag = self.lookup_table.get_tag(dstport, protocol_name)
                         if not tag:
-                            print(f"Skipping line. No tag available for dstport: {dstport} and protocol: {protocol}")
+                            print(
+                                f"Skipping line. No tag available for dstport: {dstport} and protocol: {protocol}")
                             continue
                         self.tag_count[tag] += 1
                         self.protocol_count[(dstport, protocol_name)] += 1

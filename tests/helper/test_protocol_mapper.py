@@ -1,3 +1,4 @@
+from src.helper import ProtocolMapper
 import os
 import unittest
 
@@ -5,7 +6,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 resources_dir = os.path.join(current_dir, '..', 'resources')
 protocol_path = os.path.join(resources_dir, 'protocol_test.csv')
 
-from src.helper import ProtocolMapper
 
 class TestProtocolMapper(unittest.TestCase):
 
@@ -18,14 +18,15 @@ class TestProtocolMapper(unittest.TestCase):
         with self.assertRaises(FileNotFoundError) as e:
             ProtocolMapper('aa.csv')
         self.assertIn('Protocol mapper file not found', str(e.exception))
-    
+
     def test_invalid_number(self):
         mapper = ProtocolMapper(protocol_path)
         self.assertIsNone(mapper.get_protocol_name('100'))
-    
+
     def test_valid_number(self):
         mapper = ProtocolMapper(protocol_path)
         self.assertEqual(mapper.get_protocol_name('6'), 'tcp')
+
 
 if __name__ == '__main__':
     unittest.main()

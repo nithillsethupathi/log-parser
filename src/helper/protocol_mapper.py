@@ -3,6 +3,8 @@ import csv
 '''
 A parser to parse all the protocols from protocol-numbers.csv file. Will return a dictionary in the format {'6': 'tcp'}
 '''
+
+
 class ProtocolMapper:
     def __init__(self, protocol_file):
         self.protocol_file = protocol_file
@@ -18,7 +20,8 @@ class ProtocolMapper:
                     if any(field.strip() for field in row):
                         self.protocol_mapping[row[0]] = row[1].lower()
         except FileNotFoundError:
-            raise FileNotFoundError(f"Protocol mapper file not found: {self.protocol_file}")
+            raise FileNotFoundError(
+                f"Protocol mapper file not found: {self.protocol_file}")
 
     # get protocol_mapping value (which is the name) given a key. will return None if key is not found
     def get_protocol_name(self, protocol_number):

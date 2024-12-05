@@ -13,6 +13,8 @@ Arguments:
 
 Usage: python main.py --log_file resources/<log-file>.log --lookup_file resources/<lookup-file>.csv
 '''
+
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -23,14 +25,18 @@ def main():
 
     try:
         if not args.log_file.endswith(".log"):
-            raise ValueError("Log file format not supported. Only log is supported")
+            raise ValueError(
+                "Log file format not supported. Only log is supported")
         if not args.lookup_file.endswith(".csv"):
-            raise ValueError("Lookup file format not supported. Only csv is supported")
+            raise ValueError(
+                "Lookup file format not supported. Only csv is supported")
         print(f"Parsing log file: {args.log_file}")
         protocol_mapping = ProtocolMapper('resources/protocol-numbers.csv')
         lookup_table = LookupMapper(args.lookup_file)
-        LogParser(protocol_mapping, args.log_file, lookup_table, "output/tag_results.csv", "output/port_combination_results.csv")
-        print(f"Successfully parsed the log file: {args.log_file}. Output files can be found under the output directory")
+        LogParser(protocol_mapping, args.log_file, lookup_table,
+                  "output/tag_results.csv", "output/port_combination_results.csv")
+        print(
+            f"Successfully parsed the log file: {args.log_file}. Output files can be found under the output directory")
     except Exception as e:
         print(f"Unable to parse logs: {e}")
 
