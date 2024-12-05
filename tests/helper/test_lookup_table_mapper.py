@@ -1,4 +1,3 @@
-import sys
 import os
 import unittest
 
@@ -8,7 +7,7 @@ lookup_path = os.path.join(resources_dir, 'lookup_test.csv')
 
 from src.helper import LookupMapper
 
-class TestProtocolMapper(unittest.TestCase):
+class TestLookupMapper(unittest.TestCase):
 
     def test_load_mappings(self):
         mapper = LookupMapper(lookup_path)
