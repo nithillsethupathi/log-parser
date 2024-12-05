@@ -27,3 +27,9 @@ python -m unittest discover
 
 ## Assumptions
 - Utilized protocol-number from (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml) to convert decimal given in logs to keyword
+- Supports only default log version 2 format (as per the version 2 format, going by 0 index dstport is at index 6 and protocol is at index 7)
+- Supports only txt for log file. csv for lookup.
+- Used this doc for flow log reference: https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html
+- The first part of the output, marks the tag as "Untagged" if not in lookup table
+- The second part of the output, displays all the port to protocol combination and its count. This is independent of tags.
+- The matches are case insesitive. tags and port names are converted to lower case for comparison purpose, and is later stored in output in lower case
